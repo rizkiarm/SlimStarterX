@@ -1,5 +1,5 @@
 {
-    "name": "rizkiarm/SlimStarterX",
+    "name": "rizkiarm/slim-starter-x",
     "description": "Slim Framework in MVC environment with Eloquent as database provider, Twig as template engine and Phinx as a migration utility",
     "keywords": ["framework", "slim", "mvc", "eloquent", "twig", "slim-starter", "slim-starter-x", "phinx"],
     "license": "MIT",
