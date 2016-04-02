@@ -36,7 +36,7 @@ if(isset($config['cookies'])){
  * Initialize Slim and SlimStarter application
  */
 $app        = new \Slim\Slim($config['slim']);
-$starter    = new \SlimStarter\Bootstrap($app);
+$starter    = new \SlimStarterX\Bootstrap($app);
 
 $starter->setConfig($config);
 

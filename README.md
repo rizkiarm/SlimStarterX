@@ -1,37 +1,39 @@
-SlimStarter
-===========
+SlimStarterX
+============
 
-SlimStarter is a bootstrap application built with Slim Framework in MVC architecture,
-with Laravel's Eloquent as database provider (Model) and Twig as template engine (View).
+SlimStarterX is a bootstrap application built with Slim Framework in MVC architecture,
+with Laravel's Eloquent as database provider (Model), Twig as template engine (View) and Phinx as a migration utility.
 
 Additional package is Sentry as authentication provider and Slim-facade which provide easy access to underlying Slim API
 with static interface like Laravel syntax (built based on Laravel's Facade).
 
-####Showcase
-You can test SlimStarter in live site by visiting here :
-(shared hosting) http://slimstarter.xsanisty.com
-(pagodabox) http://slimstarter.gopagoda.com
+Original project by xsanity:
+<a href="https://github.com/xsanisty/SlimStarter" target="_blank">https://github.com/xsanisty/SlimStarter</a>
 
-with username ```admin@admin.com``` and password ```password```.
+####Changes:
+Here are few changes that has been made to the original application
 
+* Added: Phinx as a migration utility, replacing the original migrate.php
+* Added: Yii-like base Model
+* Added: base Controller with CSRF support
+* Added: Illuminate/Validation for Model Validation
+* Added: ValidatorFacade and CsrfProtectionFacade
 
 ####Installation
 
-> You can now install SlimStarter on pagodabox via App Cafe https://pagodabox.com/cafe/ikhsan017/slimstarter
-
 
 #####1 Manual Install
-You can manually install SlimStarter by cloning this repo or download the zip file from this repo, and run ```composer install```.
+You can manually install SlimStarterX by cloning this repo or download the zip file from this repo, and run ```composer install```.
 ```
-$git clone https://github.com/xsanisty/SlimStarter.git .
+$git clone https://github.com/rizkiarm/SlimStarterX.git .
 $composer install
 ```
 
 #####2 Install via ```composer create-project```
-Alternatively, you can use ```composer create-project``` to install SlimStarter without downloading zip or cloning this repo.
+Alternatively, you can use ```composer create-project``` to install SlimStarterX without downloading zip or cloning this repo.
 
 ```
-composer create-project xsanisty/slim-starter --stability="dev"
+composer create-project rizkiarm/slim-starter-x --stability="dev"
 ```
 
 #####3 Setup Permission
@@ -42,15 +44,19 @@ chmod 666 app/config/database.php
 ```
 
 #####4 Configure and Setup Database
-You can now access the installer by pointing install.php in your browser
+Configure your database configuration in ``app/config/database.php``. Run the user migration using the following command inside ``app`` folder
 ```
-http://localhost/path/to/SlimStarter/public/install.php
+php phinx migrate
 ```
-
 
 
 ####Configuration
-Configuration file of SlimStarter located in ```app/config```, edit the database.php, cookie.php and other to match your need
+Configuration file of SlimStarter located in ```app/config```, edit the database.php, cookie.php and other to match your need. After you've done configuring, open ``path-to-application/public/seed`` in your browser, before you can login with the following credential.
+```
+email: admin@admin.com
+password: password
+
+```
 
 ####Routing
 Routing configuration is located in ```app/routes.php```, it use Route facade to access underlying Slim router.
@@ -273,4 +279,135 @@ class SomeActionMiddleware extends Middleware
 }
 ```
 
+####Models
+#####Rules & Messages
+######Example
+
+```
+
+<?php
+
+class Indomie extends \SlimStarterX\Base\Model {
+    protected static function rules() {
+        return [
+        'name' => 'required'
+    ];
+    }
+
+    //Use this for custom messages
+    protected static function messages() {
+        return [
+        'name.required' => 'My custom message for :attribute required'
+    ];
+    }
+}
+
+```
+
+######More
+
+Example:
+
+- app/models/ExampleModel.php
+
+Illiminate validation official documentation:
+
+- http://laravel.com/docs/4.2/validation
+
+#####Find
+
+######Example
+
+```
+
+Indomie::findOne('name', '=', 'sedap');
+
+```
+
+```
+
+Indomie::findAll('votes', '>', 100);
+
+```
+
+#####Load, Validate, Save & Delete
+######Example
+
+```
+
+// load data to model
+$indomie = new Indomie;
+$indomie->load(Input::get());
+
+// you can also load data this way
+$indomie = new Indomie(Input::post());
+
+// validate model
+$indomie->validate() // will return boolean
+
+// error stuff
+$indomie->hasErrors(); // return boolean
+$indomie->getErrors(); // return errors
+
+// validate and save model
+$indomie->save(); // will return false if either validate, beforeSave or save is failed
+
+// save model without enforcing validation
+$indomie->forceSave();
+
+```
+
+######Hooks
+
+Base Model also have hooks before some events, your Model can now implement:
+
+```
+
+public function beforeSave()
+{
+    // your code that need to be executed before model is saved
+    // this function must return boolean
+}
+
+
+public function afterSave()
+{
+    // your code that need to be executed after model is saved
+}
+
+public function beforeDelete()
+{
+    // your code that need to be executed before model is deleted
+    // this function must return boolean
+}
+
+public function afterDelete()
+{
+    // your code that need to be executed after model is deleted
+}
+
+```
+
+####CSRF Protection
+By default the CSRF protection are on, add this line in your controller to disable it.
+
+```
+
+protected $enableCsrfValidation = false;
+
+```
+
+To use CSRF protection, add this code inside your html form
+
+```
+
+{{ csrfTokenHiddenInput | raw }}
+
+// output of those above code
+<input type="hidden" name="csrf_token" value="MTQzODMxNjkyMjVnMElDWVpjS1Z1V2p5VUZCWVVEdUFiQTdwVWFKcG54">
+
+```
+
+Notes
+----
 In case autoloader cannot resolve your classes, do ```composer dump-autoload``` so composer can resolve your class location

@@ -1,13 +1,13 @@
 {
-    "name": "xsanisty/slim-starter",
-    "description": "Slim Framework in MVC environment with Eloquent as database provider and Twig as template engine",
-    "keywords": ["framework", "slim", "mvc", "eloquent", "twig", "slim-starter"],
+    "name": "rizkiarm/SlimStarterX",
+    "description": "Slim Framework in MVC environment with Eloquent as database provider, Twig as template engine and Phinx as a migration utility",
+    "keywords": ["framework", "slim", "mvc", "eloquent", "twig", "slim-starter", "slim-starter-x", "phinx"],
     "license": "MIT",
     "authors": [
         {
-            "name": "Ikhsan Agustian",
-            "email": "ikhsan017@gmail.com",
-            "homepage":"http://www.xsanisty.com/project/slimstarter",
+            "name": "Muhammad Rizki A.R.M",
+            "email": "rizki@rizkiarm.com",
+            "homepage":"http://github.com/rizkiarm",
             "role": "developer"
         }
     ],
@@ -19,8 +19,11 @@
         "twig/extensions": "*",
         "itsgoingd/slim-facades": "dev-master",
         "illuminate/database" : "4.*",
+        "illuminate/validation": "4.*",
+        "illuminate/translation": "4.*",
         "cartalyst/sentry" : "2.*",
-        "ircmaxell/password-compat": "1.0.*"
+        "ircmaxell/password-compat": "1.0.*",
+        "robmorgan/phinx": "0.4.*"
     },
     "autoload": {
         "psr-4": {
@@ -35,15 +38,13 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "chmod -R 777 app/storage",
-            "php migrate.php"
+            "chmod -R 777 app/storage"
         ],
         "post-update-cmd": [
             "rm -rf app/storage/cache/*"
         ],
         "post-create-project-cmd": [
-            "chmod -R 777 app/storage",
-            "php migrate.php"
+            "chmod -R 777 app/storage"
         ]
     },
     "config": {

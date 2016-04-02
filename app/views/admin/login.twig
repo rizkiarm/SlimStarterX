@@ -16,6 +16,7 @@
                     </div>
                     <div class="panel-body">
                         <form role="form" method="post" action="{{baseUrl()}}/login">
+                            {{ csrfTokenHiddenInput | raw }}
                             <input type="hidden" name="redirect" value="{{ flash.redirect ? : redirect}}">
                             <fieldset>
                                 <div class="form-group">

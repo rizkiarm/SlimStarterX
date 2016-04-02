@@ -1,6 +1,6 @@
 <?php
 
-class DocController extends BaseController
+class DocController extends \SlimStarterX\Base\Controller
 {
 
     public function index($page=array())

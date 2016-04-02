@@ -16,6 +16,7 @@ use \Cartalyst\Sentry\Users\UserNotFoundException;
 
 class UserController extends BaseController
 {
+    protected $enableCsrfValidation = false;
 
     public function __construct()
     {

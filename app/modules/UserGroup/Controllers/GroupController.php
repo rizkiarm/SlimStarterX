@@ -9,6 +9,7 @@ use \Admin\BaseController;
 
 class GroupController extends BaseController
 {
+    protected $enableCsrfValidation = false;
 
     public function __construct()
     {

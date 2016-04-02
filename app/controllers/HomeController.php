@@ -1,6 +1,6 @@
 <?php
 
-Class HomeController extends BaseController
+Class HomeController extends \SlimStarterX\Base\Controller
 {
 
     public function welcome()

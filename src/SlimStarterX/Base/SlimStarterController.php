@@ -1,6 +1,11 @@
 <?php
 
-class BaseController
+namespace SlimStarterX\Base;
+
+use \Slim;
+use \Request;
+
+class SlimStarterController
 {
 
     protected $app;

@@ -48,3 +48,5 @@ foreach (Module::getModules() as $module) {
 
 /** default routing */
 Route::get('/', 'HomeController:welcome');
+
+Route::get('/seed', 'InstallController:seed');

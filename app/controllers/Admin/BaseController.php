@@ -5,7 +5,7 @@ use \App;
 use \Menu;
 use \Module;
 
-class BaseController extends \BaseController
+class BaseController extends \SlimStarterX\Base\Controller
 {
 
     public function __construct()

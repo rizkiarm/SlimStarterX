@@ -18,7 +18,7 @@ $config['database'] = array(
 
         'sqlite' => array(
             'driver'   => 'sqlite',
-            'database' => APP_PATH.'storage/db/database.sqlite',
+            'database' => __DIR__.'/../../app/storage/db/database.sqlite',
             'prefix'   => '',
         ),
 
